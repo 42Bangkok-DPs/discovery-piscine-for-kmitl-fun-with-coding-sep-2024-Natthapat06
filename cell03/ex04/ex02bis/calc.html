@@ -87,8 +87,11 @@
                 let result;
                 switch (operator) {
                     case "+":
-                        result = leftOperand + rightOperand;
-                        break;
+                    if (!Number.isInteger(leftOperand) || !Number.isInteger(rightOperand)) {
+                    		alert("Error");
+                   		 console.log("Error");
+                    		return;
+                    }
                     case "-":
                         result = leftOperand - rightOperand;
                         break;
