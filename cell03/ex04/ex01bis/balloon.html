@@ -24,6 +24,7 @@
     <div id="balloon"></div>
 
     <script>
+        
         $(document).ready(function() {
             let size = 200;
             let colors = ['red', 'green', 'blue'];
@@ -34,7 +35,11 @@
                     'width': size + 'px',
                     'height': size + 'px',
                     'background-color': colors[colorIndex]
+                
                 });
+                console.log("Balloon updated:");
+                console.log("Size: " + size + "px");
+                console.log("Color: " + colors[colorIndex]);
             }
 
             $('#balloon').on('click', function() {
@@ -55,8 +60,13 @@
                 }
                 updateBalloon();
             });
+            console.log("Balloon updated -:");
+            console.log(("Size: " - colorIndex - 1 + colors.length % colors.length));
 
             updateBalloon();
+            console.log("Initial balloon state:");
+            console.log("Size: " + size + "px");
+            console.log("Color: " + colors[colorIndex]);
         });
     </script>
     
