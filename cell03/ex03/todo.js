@@ -39,7 +39,7 @@ function addTodoToList(todoText) {
     deleteButton.click(function() {
         if (confirm('Are you sure you want to delete this item?')) {
             $(this).parent().remove();
-            saveTodos(); // Save changes after deletion
+            saveTodos(); 
         }
     });
 
@@ -54,7 +54,7 @@ $(document).ready(function() {
         let newTodo = prompt("Enter a new todo:");
         if (newTodo) {
             addTodoToList(newTodo);
-            saveTodos(); // Save changes after adding new todo
+            saveTodos();
         }
     });
 });
