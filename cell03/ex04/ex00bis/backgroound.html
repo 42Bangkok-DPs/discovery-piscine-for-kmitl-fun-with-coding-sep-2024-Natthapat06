@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>background</title>
-    <link rel="stylesheet" href="background.css">
-
+    <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="click">Click me!</button>
+
     <script>
+        var count = 1;
+
+        // Event listener using jQuery
         $(document).ready(function() {
-            $('#changeColorButton').click(function() {
-                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-                $('body').css('background-color', randomColor);
+            $('#click').on('click', function() {
+                ChangeColor();
             });
         });
 
+        function ChangeColor() {
+            count = count + 1;
+
+            if (count === 1) {
+                $('body').css('background-color', colorRandom());
+                $('#click').css('font-size', '16px');
+            } else if (count === 2) {
+                $('body').css('background-color', colorRandom());
+                $('#click').css('font-size', '32px');
+            } else if (count === 3) {
+                $('body').css('background-color', colorRandom());
+                $('#click').css('font-size', '64px');
+                count = 0; // Reset count
+            }
+        }
+
+        function colorRandom() {
+            const randomColor = '#' + Math.floor(Math.random() * (256 * 256 * 256)).toString(16).padStart(6, '0');
+            return randomColor;
+        }
     </script>
-</head>
-<body>
-    <button id="changeColorButton">Click me!</button>
 </body>
 </html>
