@@ -1,18 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Background</title>
-    <link rel="stylesheet" href="background.css">
-    <script>
-        function changeBackgroundColor() {
-            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-            document.body.style.backgroundColor = randomColor; 
-        }
-    </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button onclick="changeBackgroundColor()">Click me!</button>
+    <button id ="click" onclick="ChangeColor(1)">click me!</button>
+    <script>
+        var count =1;
+        
+        function ChangeColor(x) 
+        {
+          var x;
+          if(x==1){
+            count= count+1;
+          }
+          if(count == 1){
+            document.body.style.backgroundColor = colorRandom();
+            document.getElementById("click").style.fontSize ="16px";
+          }
+          else if(count==2){
+            document.body.style.backgroundColor = colorRandom();
+            document.getElementById("click").style.fontSize ="32px";
+          }
+          else if(count==3){
+            document.body.style.backgroundColor = colorRandom();
+            document.getElementById("click").style.fontSize ="64px";
+            count = 0
+          }
+          
+        }
+        function colorRandom()
+        {
+            const randomColor = '#' + Math.floor(Math.random() * (256 * 256 * 256)).toString(16);
+            return randomColor
+        }
+        
+    </script>
 </body>
 </html>
