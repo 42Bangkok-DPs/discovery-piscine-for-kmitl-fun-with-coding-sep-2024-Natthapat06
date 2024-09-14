@@ -70,23 +70,70 @@
     </div>
 
     <script>
+        function setCookie(name, value, days) {
+            let date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + JSON.stringify(value) + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            let cookieArr = document.cookie.split("; ");
+            for (let i = 0; i < cookieArr.length; i++) {
+                let cookiePair = cookieArr[i].split("=");
+                if (name == cookiePair[0]) {
+                    return JSON.parse(cookiePair[1]);
+                }
+            }
+            return [];
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        function loadTodos() {
+            let todos = getCookie("todos");
+            todos.forEach(todoText => {
+                addTodoToList(todoText);
+            });
+        }
+
+        function addTodoToList(todoText) {
+            let todoItem = $('<div class="todo"></div>').text(todoText);
+            let deleteButton = $('<button>Delete</button>');
+
+            deleteButton.click(function() {
+                if (confirm('Are you sure you want to delete this item?')) {
+                    $(this).parent().remove();
+                    saveTodos();
+                }
+            });
+
+            todoItem.append(deleteButton);
+            $('#ft_list').prepend(todoItem);
+        }
+
+        function saveTodos() {
+            let todos = [];
+            $('#ft_list .todo').each(function() {
+                todos.push($(this).text().replace('Delete', '').trim());
+            });
+            setCookie("todos", todos, 7); // เก็บ cookie ไว้ 7 วัน
+        }
+
         $(document).ready(function() {
+            loadTodos();
+
             $('#new').click(function() {
                 let newTodo = prompt("Enter a new todo:");
                 if (newTodo) {
-                    let todoItem = $('<div class="todo"></div>').text(newTodo);
-                    let deleteButton = $('<button>Delete</button>');
-
-                    deleteButton.click(function() {
-                        if (confirm('Are you sure you want to delete this item?')) {
-                            $(this).parent().remove();
-                        }
-                    });
-
-                    todoItem.append(deleteButton);
-                    $('#ft_list').prepend(todoItem);                }
+                    addTodoToList(newTodo);
+                    saveTodos();
+                }
             });
         });
     </script>
 </body>
 </html>
+
